@@ -1,3 +1,4 @@
 # accounting-system
 
-Simple software for parsing grid and hpc logs and sending them at central database server.
+Python scripts for parsing grid and hpc logs and sending them to central database server using AMQP message broker.
+
