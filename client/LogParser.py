@@ -27,7 +27,7 @@ class LogParser:
         else:
             return {}
 
-    def parse_pbs(self, file_name):                                                                                                                      
+    def parse_pbs(self, file_name):
         with open(self.logs_dir + file_name, "r") as pbs_log:
             self.hpc_logs = [self.process_pbs_line(line) for line in pbs_log]
         self.last_log = file_name
