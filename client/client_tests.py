@@ -5,7 +5,7 @@ HPC_INFO = "HPC CENTRE INFORMATION"
 JOB_INFO = "JOB INFO"
 #SETTINGS_INFO = 'APPLICATION SETTINGS'
 
-class TestImages(unittest.TestCase):
+class TestConfig(unittest.TestCase):
 
     def test_server_name_if_avitohol(self):
         expected = 'Avitohol'
@@ -19,6 +19,10 @@ class TestImages(unittest.TestCase):
         expected = 'viseem'
         self.assertEqual(expected, config_section_map(JOB_INFO)['groups'])
 
+
+class TestSendLogs(unittest.TestCase):
+    
+    def test
 
 if __name__ == '__main__':
     unittest.main()
