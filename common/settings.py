@@ -12,4 +12,3 @@ LOGS_DIR = conf_parser.config_section_map(SETTINGS_INFO)['logsdir']
 EXCHANGE_NAME = 'direct_logs'
 EXCHANGE_TYPE = 'direct'
 CONFIG_PATH = "../accounting.conf"
-

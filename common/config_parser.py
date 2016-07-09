@@ -2,10 +2,11 @@ import configparser
 
 CONFIG_PATH = "../accounting.conf"
 
+
 class MyConfigParser():
 
-    def __init__(self, config_path = CONFIG_PATH):
-        self.config = configparser.ConfigParser() 
+    def __init__(self, config_path=CONFIG_PATH):
+        self.config = configparser.ConfigParser()
         self.config.read(config_path)
 
     def config_section_map(self, section):
@@ -23,5 +24,5 @@ class MyConfigParser():
                 dict1[option] = None
         return dict1
 
-#getint(section, option)
-#getboolean(section, option)
+# getint(section, option)
+# getboolean(section, option)

@@ -18,18 +18,18 @@ class TestImages(unittest.TestCase):
 
     def test_server_name_if_avitohol(self):
         expected = 'Spam'
-        self.assertEqual(expected,
-                         self.conf_parser.config_section_map(self.HPC_INFO)['name'])
+        result = self.conf_parser.config_section_map(self.HPC_INFO)['name']
+        self.assertEqual(expected, result)
 
     def test_server_country_if_bg(self):
         expected = 'Bacon'
-        self.assertEqual(expected, 
-                         self.conf_parser.config_section_map(self.HPC_INFO)['country'])
+        result = self.conf_parser.config_section_map(self.HPC_INFO)['country']
+        self.assertEqual(expected, result)
 
     def test_server_if_viseem(self):
         expected = 'Eggs'
-        self.assertEqual(expected,
-                         self.conf_parser.config_section_map(self.JOB_INFO)['groups'])
+        result = self.conf_parser.config_section_map(self.JOB_INFO)['groups']
+        self.assertEqual(expected, result)
 
 
 if __name__ == '__main__':

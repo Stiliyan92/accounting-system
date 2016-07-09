@@ -1,10 +1,11 @@
 import pika
 import json
 
+
 class AMQPConnector():
 
-    """ Wrapper for the pika methods for AMQP connection to the RabbitMQ server"""
-
+    """ Wrapper for the pika methods for AMQP connection
+    to the RabbitMQ server"""
     def __init__(self, server, port, virt_host, credentials):
         self.server = server
         self.port = port
@@ -19,7 +20,6 @@ class AMQPConnector():
                                       self.virt_host, self.user))
         self.create_channel()
 
-
     def create_channel(self):
         self.channel = self.connection.channel()
 
@@ -27,5 +27,4 @@ class AMQPConnector():
         """Method for creating specific exchanges in current connection"""
         self.exchange_name, self.exchange_type = exchange_name, exchange_type
         self.channel.exchange_declare(exchange=self.exchange_name,
-                         type=self.exchange_type)
-
+                                      type=self.exchange_type)
