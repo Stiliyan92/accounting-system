@@ -1,7 +1,9 @@
+import settings as s
+import json
+import os
+import sys
 from LogParser import LogParser
 from sender import LogSender
-import json
-import os, sys
 
 PROJECT_DIR = '/home/sstoyanov/python2016/project16/accounting-system/'
 COMMON_DIR = 'common/'
@@ -15,9 +17,9 @@ import settings as s
 log_parser = LogParser(s.LOGS_DIR)
 log_parser.parse_pbs("pbs_log")
 logs = log_parser.get_logs()
-HOST, VIRT_HOST, CREDENTIALS  = '194.141.225.78', '/', ('test', 'apredatorr')
+HOST, VIRT_HOST, CREDENTIALS = '194.141.225.78', '/', ('test', 'apredatorr')
 PORT, ROUTING_KEY = 5672, 'logs'
-server = LogSender(HOST, PORT, VIRT_HOST, CREDENTIALS, ROUTING_KEY) 
+server = LogSender(HOST, PORT, VIRT_HOST, CREDENTIALS, ROUTING_KEY)
 for log in logs:
-    body=json.dumps(log)
+    body = json.dumps(log)
     server.send_log(body)

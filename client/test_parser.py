@@ -1,6 +1,7 @@
 import unittest
 from LogParser import LogParser
 
+
 class TestConfig(unittest.TestCase):
 
     def setUp(self):
@@ -33,6 +34,13 @@ class TestConfig(unittest.TestCase):
         expected = '20kb'
         self.assertEqual(expected, self.logs[0]['resources_used.vmem'])
 
+    def test_if_dict_size_is(self):
+        expected = 19
+        self.assertEqual(expected, len(self.logs[0]))
+
+    def test_exception_if_file_name_error(self):
+        self.failed_parser = LogParser('./')
+        self.assertRaises(IOError, self.failed_parser.parse_pbs, 'no_such_log')
 
 
 if __name__ == '__main__':
