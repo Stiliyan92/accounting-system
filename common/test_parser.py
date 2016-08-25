@@ -7,7 +7,7 @@ class TestImages(unittest.TestCase):
 
     HPC_INFO = "HPC CENTRE INFORMATION"
     JOB_INFO = "JOB INFO"
-
+    SETTINGS_INFO = "APPLICATION SETTINGS"
     # preparing to test
     def setUp(self):
         """ Setting up for the test """
@@ -29,6 +29,11 @@ class TestImages(unittest.TestCase):
     def test_server_if_viseem(self):
         expected = 'Eggs'
         result = self.conf_parser.config_section_map(self.JOB_INFO)['groups']
+        self.assertEqual(expected, result)
+
+    def test_log_dir(self):
+        expected = '/home/sstoyanov/python2016/pbs_logs/'
+        result = self.conf_parser.config_section_map(self.SETTINGS_INFO)['logs']
         self.assertEqual(expected, result)
 
 

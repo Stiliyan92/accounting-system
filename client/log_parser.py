@@ -9,6 +9,7 @@ class LogParser:
     def __init__(self, logs_dir):
         self.hpc_logs = []
         self.last_log = ''
+        print(logs_dir)
         self.logs_dir = logs_dir
 # log_files = [f for f in listdir(self.logs_dir) if isfile(join(mypath, f))]
 

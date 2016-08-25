@@ -1,17 +1,8 @@
 import pika
 import sys
-import os
-from connector import AMQPConnector
-
-PROJECT_DIR = '/home/sstoyanov/python2016/project16/accounting-system/'
-COMMON_DIR = 'common/'
-
-module_path = os.path.abspath(os.path.join(PROJECT_DIR + COMMON_DIR))
-if module_path not in sys.path:
-    sys.path.append(module_path)
 
 import settings as s
-
+from common.connector import AMQPConnector
 
 class LogSender(AMQPConnector):
 
