@@ -10,7 +10,7 @@ class AMQPConnector():
         self.server = server
         self.port = port
         self.virt_host = virt_host
-        self.user = pika.PlainCredentials('test', 'test')
+        self.user = pika.PlainCredentials(credentials[0], credentials[1])
 
     def open_connection(self):
         """ Opens Blocking connection to the AMQP server

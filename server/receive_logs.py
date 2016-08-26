@@ -1,30 +1,9 @@
 import pika
-import sys
+from receiver import LogReceiver
 
 
-connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
+PORT, ROUTING_KEY = 5672, 'logs'
+HOST, VIRT_HOST, CREDENTIALS  = '194.141.225.78', '/', ('admin', 'b3T@_testing')                                                                                                                                   
+server = LogReceiver(HOST, PORT, VIRT_HOST, CREDENTIALS, ROUTING_KEY)
+server.receive_logs()
 
-channel.exchange_declare(exchange='direct_logs', type='direct')
-
-result = channel.queue_declare(exclusive=True)
-queue_name = result.method.queue
-
-
-for severity in severities:
-    channel.queue_bind(exchange='direct_logs',
-                       queue=queue_name,
-                       routing_key='logs')
-
-print(' [*] Waiting for logs. To exit press CTRL+C')
-
-
-def callback(ch, method, properties, body):
-    print(" [x] %r:%r" % (method.routing_key, body))
-
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
-
-channel.start_consuming()
