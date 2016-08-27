@@ -11,7 +11,8 @@ class LogParser:
         self.hpc_logs = []
         self.last_log = ''
         self.logs_dir = logs_dir
-# log_files = [f for f in listdir(self.logs_dir) if isfile(join(mypath, f))]
+        # log_files = [f for f in listdir(self.logs_dir)
+        # if isfile(join(mypath, f))]
 
     def process_pbs_line(self, pbs_line):
         timestamp, rec_type, job_id, line_record = pbs_line.split(';', 3)

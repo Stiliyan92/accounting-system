@@ -1,5 +1,6 @@
 import unittest
 from client.log_parser import LogParser
+import settings as s
 
 
 class TestConfig(unittest.TestCase):
@@ -44,5 +45,4 @@ class TestConfig(unittest.TestCase):
 
 
 if __name__ == '__main__':
-
     unittest.main()

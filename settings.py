@@ -20,3 +20,4 @@ CREDENTIALS = ('test', 'b3T@_testing')
 ADMIN = ('admin', 'b3T@_testing')
 PORT = 5672
 ROUTING_KEY = 'logs'
+HOST = 'Avitohol'
