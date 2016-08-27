@@ -15,7 +15,7 @@ class LogParser:
     def process_pbs_line(self, pbs_line):
         timestamp, rec_type, job_id, line_record = pbs_line.split(';', 3)
         parsed_ts = time.strptime(timestamp, "%m/%d/%Y %H:%M:%S")
-        dict_of_job_info = {'job_id': job_id, 'server' : s.SERVER,
+        dict_of_job_info = {'job_id': job_id, 'server' : s.HOST,
                             'log_date' : timestamp}
 #        if state of job is exited succesfuly
         if rec_type == 'E':
