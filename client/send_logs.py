@@ -18,7 +18,7 @@ def send_logs():
     logs = log_parser.get_logs()
 #    HOST, VIRT_HOST, CREDENTIALS = '194.141.225.78', '/', ('test', 'apredatorr')
 #    PORT, ROUTING_KEY = 5672, 'logs'
-    server = LogSender(s.HOST, s.PORT, s.VIRT_HOST, s.CREDENTIALS, s.ROUTING_KEY)
+    server = LogSender(s.SERVER, s.PORT, s.VIRT_HOST, s.CREDENTIALS, s.ROUTING_KEY)
     for log in logs:
         body = json.dumps(log)
         server.send_log(body)

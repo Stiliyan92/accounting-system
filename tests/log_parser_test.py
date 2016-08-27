@@ -1,12 +1,12 @@
 import unittest
-from LogParser import LogParser
+from client.log_parser import LogParser
 
 
 class TestConfig(unittest.TestCase):
 
     def setUp(self):
         """ Setting up for the test """
-        self.log_parser = LogParser('./')
+        self.log_parser = LogParser('./tests/')
         self.log_parser.parse_pbs('pbs_test_log')
         self.logs = self.log_parser.get_logs()
 
@@ -35,7 +35,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(expected, self.logs[0]['resources_used.vmem'])
 
     def test_if_dict_size_is(self):
-        expected = 19
+        expected = 21
         self.assertEqual(expected, len(self.logs[0]))
 
     def test_exception_if_file_name_error(self):
