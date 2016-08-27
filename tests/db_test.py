@@ -1,13 +1,13 @@
 import unittest
-import server.dbio
+from server.dbio import MySQLWrapper, parse_data
 import settings as s
+
 
 class TestConfig(unittest.TestCase):
 
     def setUp(self):
         """ Setting up for the test """
-        self.sql_wrapper = MySQLWrapper(s.SERVER, S.DATABASE)
-        self.log_parser.parse_pbs('pbs_test_log')
+        self.sql_wrapper = MySQLWrapper(s.SERVER, s.DATABASE)
         self.log_entry = {"resources_used.walltime": "37:49:17\\n",
                           "Exit_status": "0", "Resource_List.nodes": "1",
                           "etime": "1453799100",
@@ -26,9 +26,9 @@ class TestConfig(unittest.TestCase):
                           "end": "1453935258"}
 
     def test_if_parsing_correctly_1_node(self):
-        expected = "INSERT INTO log VALUES('Avitohol', 'prdlhcb006', 'prdlhcb', \
-                    'lhcb', 1, 1453799101, 1453935258, 1590068, 3376844, \
-                    '37:48:13', '72:00:00', '2016-28-01 00:54:18')"
+        expected = "INSERT INTO log VALUES('Avitohol', 'prdlhcb006', " + \
+                   "'prdlhcb', 'lhcb', 1, 1453799101, 1453935258, 1590068, " + \
+                   "3376844, '37:48:13', '72:00:00', '2016-28-01 00:54:18')"
         result = parse_data(self.log_entry, s.TABLE)
         self.assertEqual(expected, result)
 

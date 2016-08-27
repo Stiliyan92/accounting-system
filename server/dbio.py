@@ -7,8 +7,8 @@ def parse_data(log, table):
         test_accounting database"""
     date = log.get('log_date')
     datetime = date[6:10] + '-' + date[3:5] + '-' + date[0:2] + date[10:]
-    sql_query = "INSERT INTO {} VALUES('{}', '{}', '{}', '{}', \
-                 {}, {}, {}, {}, {}, '{}', '{}', '{}')"
+    sql_query = "INSERT INTO {} VALUES('{}', '{}', '{}', '{}'," + \
+                " {}, {}, {}, {}, {}, '{}', '{}', '{}')"
     sql_query = sql_query.format(table, log['server'], log['user'],
                                  log['group'], log['queue'],
                                  log['Resource_List.neednodes'],
