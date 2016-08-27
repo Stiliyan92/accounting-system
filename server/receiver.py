@@ -4,6 +4,7 @@ import json
 import settings as s
 from server.dbio import MySQLWrapper
 
+
 class LogReceiver(AMQPConnector):
 
     def __init__(self, server, port, virt_host, credentials, routing_key):
@@ -21,15 +22,14 @@ class LogReceiver(AMQPConnector):
         self.create_exchange(s.EXCHANGE_NAME, s.EXCHANGE_TYPE)
         self.create_queue()
         self.bind_queue()
-        self.channel.basic_consume(self.callback, queue=self.queue_name, no_ack=True)
+        self.channel.basic_consume(self.callback,
+                                   queue=self.queue_name, no_ack=True)
         print(' [*] Waiting for logs. To exit press CTRL+C')
         self.channel.start_consuming()
-
 
     def create_queue(self):
         self.queue = self.channel.queue_declare()
         self.queue_name = self.queue.method.queue
-
 
     def bind_queue(self):
         self.channel.queue_bind(exchange=self.exchange_name,

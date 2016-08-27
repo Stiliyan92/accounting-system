@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile, join
 import settings as s
 
+
 class LogParser:
     NOT_NEEDED = ["exec_host", "session", "owner"]
 
@@ -15,15 +16,15 @@ class LogParser:
     def process_pbs_line(self, pbs_line):
         timestamp, rec_type, job_id, line_record = pbs_line.split(';', 3)
         parsed_ts = time.strptime(timestamp, "%m/%d/%Y %H:%M:%S")
-        dict_of_job_info = {'job_id': job_id, 'server' : s.HOST,
-                            'log_date' : timestamp}
-#        if state of job is exited succesfuly
+        dict_of_job_info = {'job_id': job_id, 'server': s.HOST,
+                            'log_date': timestamp}
+        # if state of job is exited succesfuly
         if rec_type == 'E':
             for item in line_record.split(' '):
                 try:
-#                   if more than one node there is additional ppn data
+                    # if more than one node there is additional ppn data
                     if 'ppn' in item:
-                        for sub_item in  item.split(':'):
+                        for sub_item in item.split(':'):
                             key, value = sub_item.split('=')
                             dict_of_job_info[key] = value
                     else:
@@ -43,10 +44,3 @@ class LogParser:
 
     def get_logs(self):
         return self.hpc_logs
-
-# lg = LogParser('../')
-# lg.parse_pbs("pbs_log")
-# logs = lg.get_logs()
-# for dict in logs:
-#    for key, value in dict.items():
-#        print("key: " + key + ", value: " + value + "\n")

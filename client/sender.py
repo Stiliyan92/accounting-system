@@ -4,6 +4,7 @@ import sys
 import settings as s
 from common.connector import AMQPConnector
 
+
 class LogSender(AMQPConnector):
 
     def __init__(self, server, port, virt_host, credentials, routing_key):

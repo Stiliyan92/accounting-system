@@ -1,6 +1,8 @@
 import configparser
 
-CONFIG_PATH='accounting.conf'
+CONFIG_PATH = 'accounting.conf'
+
+
 class MyConfigParser():
 
     def __init__(self, config_path=CONFIG_PATH):
