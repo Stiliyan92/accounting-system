@@ -32,12 +32,28 @@ class MySQLWrapper():
     def __enter__(self):
         return self
 
-    def insert_to(self, table, log):
-        with self.connection.cursor() as cursor:
-            sql_query = parse_data(log, table)
-            cursor.execute(sql_query)
+    def _commit_transaction(self, query):
+        success = False
+        with self.connection.cursor() as self.cursor:
+            self.cursor.execute(query)
+            success = True
         self.connection.commit()
-        print("SUCCESS!!!")
+        return success
+
+    def insert_to(self, table, log):
+        sql_query = parse_data(log, table)
+        if self._commit_transaction(sql_query):
+            print("SUCCESS!!!")
+
+    def select_entries_by_server(self, server_name):
+        sql_query = "SELECT * FROM {} WHERE server = "{}".format(s.TABLE, server_name)"
+            if self._commit_transaction(sql_query):
+                return self.cursor
+
+    def select_entries_by_queue(self, queue_name):
+        sql_query = "SELECT * FROM {} WHERE queue = "{}".format(s.TABLE, queue_name)"
+            if self._commit_transaction(sql_query):
+                return self.cursor
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.connection.close()
