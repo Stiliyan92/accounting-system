@@ -1,2 +1,3 @@
 *.pyc
 pep8_test.sh
+*.not_working
