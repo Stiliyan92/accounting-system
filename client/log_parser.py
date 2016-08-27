@@ -21,11 +21,17 @@ class LogParser:
         if rec_type == 'E':
             for item in line_record.split(' '):
                 try:
-                    key, value = item.split('=')
+#                   if more than one node there is additional ppn data
+                    if 'ppn' in item:
+                        for sub_item in  item.split(':'):
+                            key, value = sub_item.split('=')
+                            dict_of_job_info[key] = value
+                    else:
+                        key, value = item.split('=')
+                        if key not in self.NOT_NEEDED:
+                            dict_of_job_info[key] = value
                 except:
                     break
-                if key not in self.NOT_NEEDED:
-                    dict_of_job_info[key] = value
             return dict_of_job_info
         else:
             return {}
