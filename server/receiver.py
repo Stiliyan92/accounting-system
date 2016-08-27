@@ -2,6 +2,7 @@ from common.connector import AMQPConnector
 import pika
 import json
 import settings as s
+from server.dbio import MySQLWrapper
 
 class LogReceiver(AMQPConnector):
 
@@ -11,9 +12,9 @@ class LogReceiver(AMQPConnector):
 
     def callback(self, ch, method, properties, body):
         log = json.loads(body.decode())
-        for key, value in log.items():
-            output = "{} : {}".format(key,value)
-            print(output)
+        if log:
+            with MySQLWrapper(s.SERVER, s.DATABASE) as sql_conn:
+                sql_conn.insert_to(s.TABLE, log)
 
     def receive_logs(self):
         self.open_connection()
