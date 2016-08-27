@@ -22,6 +22,8 @@ def parse_data(log, table):
 
 class MySQLWrapper():
 
+    s.SERVER = 'localhost'
+
     def __init__(self, server, database):
         self.server = server
         self.connection = MySQLdb.connect(host=s.SERVER,
@@ -46,14 +48,14 @@ class MySQLWrapper():
             print("SUCCESS!!!")
 
     def select_entries_by_server(self, server_name):
-        sql_query = "SELECT * FROM {} WHERE server = "{}".format(s.TABLE, server_name)"
-            if self._commit_transaction(sql_query):
-                return self.cursor
+        sql_query = "SELECT * FROM {} WHERE server = '{}'"
+        if self._commit_transaction(sql_query.format(s.TABLE, server_name)):
+            return self.cursor
 
     def select_entries_by_queue(self, queue_name):
-        sql_query = "SELECT * FROM {} WHERE queue = "{}".format(s.TABLE, queue_name)"
-            if self._commit_transaction(sql_query):
-                return self.cursor
+        sql_query = "SELECT * FROM {} WHERE queue = '{}'"
+        if self._commit_transaction(sql_query.format(s.TABLE, queue_name)):
+            return self.cursor
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.connection.close()
