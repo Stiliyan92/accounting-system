@@ -1,30 +1,36 @@
-import pymysql.cursors
+import MySQLdb
+import settings as s
 
-SERVER = '194.141.225.78'
-DATABASE_NAME = 'test_accounting'
-# Connect to the database
-connection = pymysql.connect(host=SERVER,
-                             user='test',
-                             password='ins3rt_b@Z@&D',
-                             db=DATABASE_NAME,
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+def parse_data(log, table):
+    """ Parses log input in appropriate string for inserting
+        test_accounting database"""
+    date = log.get('log_date')
+    datetime =  date[6:10] + '-' + date[3:5] + '-' + date[0:2] + date[10:]
+    sql_query = "INSERT INTO {} VALUES('{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, '{}', '{}', '{}')"
+    sql_query = sql_query.format(table, log['server'], log['user'], log['group'],
+                                 log['queue'], log['Resource_List.neednodes'],
+                                 log['start'], log['end'], log['resources_used.mem'][:-2],
+                                 log['resources_used.vmem'][:-2], log['resources_used.cput'],
+                                 log['Resource_List.walltime'], datetime)
+    return sql_query
 
-try:
-    with connection.cursor() as cursor:
-        # Create a new record
-        sql = "INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)"
-        cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
+class MySQLWrapper():
 
-    # connection is not autocommit by default. So you must commit to save
-    # your changes.
-    connection.commit()
+    def __init__(self, server, database):
+        self.server = server
+        self.connection = MySQLdb.connect(host='localhost',
+                                        user=s.DB_USER,
+                                        passwd=s.DB_PASS,
+                                        db=database)
+    def __enter__(self):
+        return self
 
-    with connection.cursor() as cursor:
-        # Read a single record
-        sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
-        cursor.execute(sql, ('webmaster@python.org',))
-        result = cursor.fetchone()
-        print(result)
-finally:
-    connection.close()
+    def insert_to(self, table, log):
+        with self.connection.cursor() as cursor:
+            sql_query = parse_data(log, table)
+            cursor.execute(sql_query)
+        self.connection.commit()
+        print("SUCCESS!!!")
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.connection.close()
