@@ -24,7 +24,7 @@ class MySQLWrapper():
 
     def __init__(self, server, database):
         self.server = server
-        self.connection = MySQLdb.connect(host='localhost',
+        self.connection = MySQLdb.connect(host=s.SERVER,
                                           user=s.DB_USER,
                                           passwd=s.DB_PASS,
                                           db=database)
